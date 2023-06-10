@@ -36,7 +36,6 @@ class Login_page(unittest.TestCase):
         self.assertEqual(expected,actual)
 
 
-
     def test_login_page_with_user_name_incorrect_and_password_correct(self):
         '''I checked if I can log in with an incorrect username and the correct password
         error displayed
@@ -48,7 +47,6 @@ class Login_page(unittest.TestCase):
         expected = 'Invalid credentials'
         actual = self.chrome.find_element(*self.INVALID_CREDENTIALS).text
         self.assertEqual(expected, actual)
-
 
 
     def test_login_page_with_user_name_correct_and_password_incorrect(self):
@@ -99,7 +97,6 @@ class Login_page(unittest.TestCase):
     def tearDown(self):
         '''All the activities that must be performed after any test in the respective class'''
         self.chrome.quit()
-
 
 
 class Dashboard(unittest.TestCase):
