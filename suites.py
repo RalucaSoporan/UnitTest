@@ -27,4 +27,5 @@ class TestSuite(unittest.TestCase):
             report_name="Raport Proiect final"
         )
 
+
         runner.run(teste_de_rulat)
