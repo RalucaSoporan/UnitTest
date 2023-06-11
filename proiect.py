@@ -183,7 +183,7 @@ class Search_button(unittest.TestCase):
         actual = self.chrome.current_url
         self.assertEqual(expected,actual)
 
-    def test_search_button_with_invalid_texy(self):
+    def test_search_button_with_invalid_text(self):
         '''Enter an invalid text in the search box and I check if they stay on the same page'''
         self.chrome.find_element(*self.SEARCH_BUTTON).send_keys('@#$%')
         expected = 'https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index'

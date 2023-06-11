@@ -9,23 +9,21 @@ from proiect import Menu_aplication
 class TestSuite(unittest.TestCase):
 
     def test_suite(self):
+        '''We establish and add in a suite the tests we want to run'''
 
+        tests_to_run= unittest.TestSuite()
 
-        teste_de_rulat = unittest.TestSuite()
-
-        teste_de_rulat.addTests([
+        tests_to_run.addTests([
             unittest.defaultTestLoader.loadTestsFromTestCase(Login_page),
             unittest.defaultTestLoader.loadTestsFromTestCase(Dashboard),
             unittest.defaultTestLoader.loadTestsFromTestCase(Search_button),
             unittest.defaultTestLoader.loadTestsFromTestCase(Menu_aplication)
-
         ])
-
+        '''I am creating a runner'''
         runner = HtmlTestRunner.HTMLTestRunner(
-            combine_reports=True, # vrem sa generam un singur raport cu toate testele
+            combine_reports=True, # we want to generate a single report with all the tests
             report_title="Test Execution Report",
-            report_name="Raport Proiect final"
+            report_name="Raport final project"
         )
 
-
-        runner.run(teste_de_rulat)
+        runner.run(tests_to_run)
