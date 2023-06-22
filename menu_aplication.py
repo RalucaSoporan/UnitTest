@@ -29,8 +29,7 @@ class Menu_aplication(unittest.TestCase):
         menu_list = self.chrome.find_element(*self.MENU_LIST).text
         admin = self.chrome.find_element(*self.ADMIN).text
         self.assertIn(admin,menu_list, f'{menu_list}, {admin}')
-        print(menu_list)
-        print(admin)
+
 
     def test_pim_in_menu_list(self):
         '''I check if there is an PIM window in the menu list'''

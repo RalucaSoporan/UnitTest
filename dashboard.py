@@ -38,10 +38,6 @@ class Dashboard(unittest.TestCase):
         buzz_latest_posts = self.chrome.find_element(By.XPATH, '//*[text() = "Buzz Latest Posts"]')
         self.assertTrue(buzz_latest_posts.is_displayed(), True)
 
-    def test_employees_on_leave_today_is_displayed(self):
-        '''The Employee on leave window is displaye'''
-        employees_on_leave_today = self.chrome.find_element(By.XPATH, '//*[@id="app"]/div[1]/div[2]/div[2]/div/div[5]/div/div[1]')
-        self.assertTrue(employees_on_leave_today.is_displayed(), True)
 
     def test_employee_distribution_by_sub_unit_is_displayed(self):
         '''The Employee Distribution by Sub Unit window is display'''

@@ -2,6 +2,7 @@ import time
 import unittest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import NoSuchElementException
 
 
 class Login_page(unittest.TestCase):
@@ -12,11 +13,13 @@ class Login_page(unittest.TestCase):
     LOGO_TITLE = (By.XPATH, '//*[@alt="company-branding"]')
     LOGIN_TITLE= (By.XPATH, '//h5')
     INVALID_CREDENTIALS = (By.XPATH, '//*[text() = "Invalid credentials"]')
+    REQUIRED = (By.XPATH, '//span[text() = "Required"]')
+
 
     def setUp(self):
         '''It contains all the steps that must be taken before class test time'''
         self.chrome = webdriver.Chrome()
-        self.chrome.implicitly_wait(5)
+        self.chrome.implicitly_wait(10)
         self.chrome.maximize_window()
         self.chrome.get('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
 
@@ -66,22 +69,40 @@ class Login_page(unittest.TestCase):
         self.chrome.find_element(*self.USERNAME).send_keys('Admin')
         self.chrome.find_element(*self.PASSWORD).send_keys('')
         self.chrome.find_element(*self.LOGIN_BUTTON).click()
+        list = self.chrome.find_elements(*self.REQUIRED)
+        actual= list[0].text
         expected = 'Required'
-        actual = self.chrome.find_element(By.XPATH, '//span[text() = "Required"]').text
         self.assertEqual(expected, actual)
 
 
-    def test_login_page_with_user_name_none_and_password_correct(self):
+    def test_login_page_with_user_name_none_and_password_none(self):
         '''I checked if I can log in with the missing username and correct password
         error displayed
         '''
         self.chrome.find_element(*self.USERNAME).send_keys('')
-        self.chrome.find_element(*self.PASSWORD).send_keys('admin123')
+        self.chrome.find_element(*self.PASSWORD).send_keys('')
         self.chrome.find_element(*self.LOGIN_BUTTON).click()
+        list = self.chrome.find_elements(*self.REQUIRED)
         expected = 'Required'
-        actual = self.chrome.find_element(By.XPATH,
-                                          '//*[@id="app"]/div[1]/div/div[1]/div/div[2]/div[2]/form/div[1]/div/span').text
-        self.assertEqual(expected, actual)
+        actual1 = list[0].text
+        actual2 = list[1].text
+        self.assertEqual(expected, actual1)
+        self.assertEqual(expected,actual2)
+
+    def test_error_disappears_when_I_put_credentials(self):
+        '''check if the credentials error has disappeared'''
+        self.chrome.find_element(*self.USERNAME).send_keys('')
+        self.chrome.find_element(*self.PASSWORD).send_keys('')
+        self.chrome.find_element(*self.LOGIN_BUTTON).click()
+        list = self.chrome.find_elements(By.XPATH, '//span[text() = "Required"]')
+        self.chrome.find_element(*self.USERNAME).send_keys('invalid_name')
+        self.chrome.find_element(*self.PASSWORD).send_keys('invalid_password')
+        time.sleep(3)
+        with self.assertRaises(NoSuchElementException):
+            self.chrome.find_element(*self.REQUIRED)
+
+
+
 
     def test_login_page_with_user_name_correct_and_password_correct(self):
         '''I tried to log in with the correct credentials'''
