@@ -1,10 +1,10 @@
 import unittest
 import HtmlTestRunner
 
-from proiect import Login_page
-from proiect import Dashboard
-from proiect import Search_button
-from proiect import Menu_aplication
+from login_page import Login_page
+from dashboard import Dashboard
+from search_button import Search_button
+from menu_aplication import Menu_aplication
 
 class TestSuite(unittest.TestCase):
 
