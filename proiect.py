@@ -6,7 +6,6 @@ from selenium.webdriver.common.by import By
 
 class Login_page(unittest.TestCase):
 
-
     USERNAME = (By.XPATH, '//*[@name="username"]')
     PASSWORD = (By.XPATH, '//*[@name="password"]')
     LOGIN_BUTTON = (By.XPATH, '//*[@type="submit"]')
